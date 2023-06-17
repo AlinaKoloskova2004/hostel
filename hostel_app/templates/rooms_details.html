@@ -1,0 +1,46 @@
+{% extends "root.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+   
+    </head>
+    <body>
+    {% block content %}
+    <div class="s0">
+<img src={{ pk.img.url }}  width="700" alt="...">
+
+<div class="s1">
+  <h1><b>Название:</b> {{ pk.name }}</h1>
+
+ <h4><b>Описание:</b> {{ pk.description }}</h1>
+ <h4><b>Цена:</b> {{ pk.price }}</h1>
+ <h4><b>Рейтинг:</b><img src="/static/images/rating.png" width="60px"></h1>
+ </div>
+ </div>
+        <h2>Забронировать номер</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class="btn btn-success" value="Отправить" type="submit">
+    </form>
+    
+    {% for booking in bookings_list %} 
+        <div>
+            <p>{{ booking.name }}</p>
+            <p>{{ booking.phone }}</p>
+            <p>{{ booking.room }}</p>
+            <p>{{ booking.num_of_guest }}</p>
+            <p>{{ booking.num_of_child }}</p>
+            <p>{{ booking.checkin_date }}</p>
+            <p>{{ booking.checkout_date }}</p>
+        </div>
+    {% endfor %}
+            
+     
+      
+  
+  
+    {% endblock %} 
+    </body>
+</html>

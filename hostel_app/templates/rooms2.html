@@ -1,0 +1,71 @@
+{% extends "root.html" %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+   
+    </head>
+    <body>
+    {% block content %}
+    <div class="cards">
+
+    <form action="." method='get'>
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Поиск">
+    </form>
+    <!-- Room Start -->
+    <div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title text-center text-primary text-uppercase">Номера</h6>
+            <h1 class="mb-5">Выберите <span class="text-primary text-uppercase">Номер</span></h1>
+        </div>
+  
+        
+           
+   
+    <div class="two">  
+      {% for room2 in rooms %}  
+             
+    <div class="card" style="width: 18rem;"> 
+      <img src={{ room2.img.url }} class="card-img-top" width="200px" height="200px" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{ room2.name }}</h5>
+        <p class="truncate-text" >{{ room2.description|truncatechars:80}}</p>  
+        <a href="{% url 'hostel_app:details' room2.pk %}" class="btn btn-primary">Подробнее</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <ul style="">
+        {% for i in paginator.page_range %}
+        <li style="">
+            {% if i == rooms.number %}
+                {{i}}
+            {% else %}
+            <a href="{% url 'hostel_app:rooms' %}?page={{i}}">{{i}}</a>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+    <ul>
+        <li>
+            {% if rooms.has_previous %}
+            <a href="{% url 'hostel_app:rooms' %}?page={{ rooms.previous_page_number }}">⇺</a>
+            {% endif %}
+        </li>
+        <li>{{ rooms.number }}</li>
+        
+         <li>
+             {% if rooms.has_next %}
+             <a href="{% url 'hostel_app:rooms' %}?page={{ rooms.next_page_number }}">⤘</a>
+             {% endif %}
+         </li>
+          
+    </ul>
+    
+    </div>
+    {% endblock %}  
+    </body>
+</html>  
+
